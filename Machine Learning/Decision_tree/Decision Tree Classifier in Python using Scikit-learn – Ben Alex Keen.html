@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)http://benalexkeen.com/decision-tree-classifier-in-python-using-scikit-learn/ -->
+<html class="no-touch webkit chrome chrome69 linux js no-hidpi minw_1200 orientation_landscape datauri" lang="en-GB" xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://benalexkeen.com/xmlrpc.php">
+<script type="text/x-mathjax-config;executed=true">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/MathJax.js" id="">
+</script>
+<title>Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen</title>
+<link rel="dns-prefetch" href="http://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Ben Alex Keen » Feed" href="http://benalexkeen.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Ben Alex Keen » Comments Feed" href="http://benalexkeen.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Ben Alex Keen » Decision Tree Classifier in Python using Scikit-learn Comments Feed" href="http://benalexkeen.com/decision-tree-classifier-in-python-using-scikit-learn/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/benalexkeen.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.9"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="layerslider-css" href="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/layerslider.css" type="text/css" media="all">
+<link rel="stylesheet" id="ls-google-fonts-css" href="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="uncode-style-css" href="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/style.css" type="text/css" media="all">
+<style id="uncode-style-inline-css" type="text/css">
+
+@media (min-width: 960px) { .limit-width { max-width: 1200px; margin: auto;}}
+.menu-primary ul.menu-smart > li > a, .menu-primary ul.menu-smart li.dropdown > a, .menu-primary ul.menu-smart li.mega-menu > a, .vmenu-container ul.menu-smart > li > a, .vmenu-container ul.menu-smart li.dropdown > a { text-transform: uppercase; }
+</style>
+<link rel="stylesheet" id="uncode-icons-css" href="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/uncode-icons.css" type="text/css" media="all">
+<link rel="stylesheet" id="uncode-custom-style-css" href="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/style-custom.css" type="text/css" media="all">
+<style id="uncode-custom-style-inline-css" type="text/css">
+.input_prompt {color:#8476FF;}.navbar {margin-bottom:20px;border-radius:0;}.c {color:#cc8400;}.k {color:#338822;font-weight:bold;}.kn {color:#338822;font-weight:bold;}.mi {color:#ce3785;}.o {color:#889a00;}.ow {color:#BA22FF;font-weight:bold;}.nb {color:#338822;}.n {color:#0c3643;}.s {color:#cc2222;}.se {color:#cc2222;font-weight:bold;}.s1 {color:#3ba198;}.s2 {color:#3ba198;}.c1 {color:#849496;}.sd {color:#849496;}.si {color:#C06688;font-weight:bold;}.mf {color:#cd3785;}.nn {color:#4D00FF;font-weight:bold;}.output_area pre {background-color:#FFFFFF;padding-left:5%;}.site-description {margin:10px auto;}#site-title {margin-top:10px;}.blog-header {padding-top:20px;padding-bottom:20px;}.code_cell {padding-left:2%;}.cell {margin-top:20px;margin-bottom:20px;}br {line-height:2;}.cell h1, h2, h3, h4 {margin-top:30px;margin-bottom:10px;}code,kbd,pre,samp {font-family:Monaco, monospace;border-radius:2px;font-size:12px;line-height:1.75;margin:18px 0 0;}code {padding:4px;color:#2e8ad8;}pre {display:block;margin:18px 0px 0px 0px;padding:10px 10px 10px 10px;border:1px solid;}.output_prompt {color:#b20000}.style-light .link,.style-light.style-override .link,.style-dark .style-light .link,.style-light a,.style-light.style-override a,.style-dark .style-light a,.style-light input[type=checkbox]:checked:before,.style-light.style-override input[type=checkbox]:checked:before,.style-dark .style-light input[type=checkbox]:checked:before {color:#0cb4ce}
+</style>
+<link rel="stylesheet" id="uncodefont-google-css" href="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/css(1)" type="text/css" media="all">
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/greensock.js"></script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/jquery.js"></script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/layerslider.kreaturamedia.jquery.js"></script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/layerslider.transitions.js"></script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/ai-uncode.min.js" id="uncodeAI" data-breakpoints-images="258,516,720,1032,1440,2064,2880"></script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/init.min.js"></script>
+<link rel="https://api.w.org/" href="http://benalexkeen.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://benalexkeen.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://benalexkeen.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Linear Regression in Python using scikit-learn" href="http://benalexkeen.com/linear-regression-in-python-using-scikit-learn/">
+<link rel="next" title="Support Vector Classifiers in python using scikit-learn" href="http://benalexkeen.com/support-vector-classifiers-in-python-using-scikit-learn/">
+<meta name="generator" content="WordPress 4.9.9">
+<link rel="canonical" href="http://benalexkeen.com/decision-tree-classifier-in-python-using-scikit-learn/">
+<link rel="shortlink" href="http://benalexkeen.com/?p=45199">
+<link rel="alternate" type="application/json+oembed" href="http://benalexkeen.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fbenalexkeen.com%2Fdecision-tree-classifier-in-python-using-scikit-learn%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://benalexkeen.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fbenalexkeen.com%2Fdecision-tree-classifier-in-python-using-scikit-learn%2F&amp;format=xml">
+<meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress.">
+<!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="http://benalexkeen.com/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]--><noscript><style type="text/css"> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">undefined</style><meta name="sharer.share-button.share-buttons.share-inline.only-icon.sharer-0"><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Main; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff?V=2.7.1') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf?V=2.7.1') format('opentype')}
+@font-face {font-family: MathJax_Main-bold; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff?V=2.7.1') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf?V=2.7.1') format('opentype')}
+@font-face {font-family: MathJax_Main-italic; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff?V=2.7.1') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf?V=2.7.1') format('opentype')}
+@font-face {font-family: MathJax_Math-italic; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff?V=2.7.1') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf?V=2.7.1') format('opentype')}
+@font-face {font-family: MathJax_Caligraphic; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff?V=2.7.1') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf?V=2.7.1') format('opentype')}
+@font-face {font-family: MathJax_Size1; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff?V=2.7.1') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf?V=2.7.1') format('opentype')}
+@font-face {font-family: MathJax_Size2; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff?V=2.7.1') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf?V=2.7.1') format('opentype')}
+@font-face {font-family: MathJax_Size3; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff?V=2.7.1') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf?V=2.7.1') format('opentype')}
+@font-face {font-family: MathJax_Size4; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff?V=2.7.1') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf?V=2.7.1') format('opentype')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="post-template-default single single-post postid-45199 single-format-standard style-color-wayh-bg smooth-scroller hmenu hmenu-position-center header-full-width main-center-align wpb-js-composer js-comp-ver-5.4.7 vc_responsive window-scrolled disable-hover"><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+		
+	<div class="box-wrapper">
+		<div class="box-container" style="width: 1284px; margin-left: -0.5px;">
+		<script type="text/javascript">UNCODE.initBox();</script>
+		<div class="menu-wrapper menu-no-arrows with-header" style="height: 0px;">
+													
+													<header id="masthead" class="navbar menu-primary menu-light submenu-dark menu-transparent menu-add-padding style-light-original menu-absolute menu-with-logo style-dark-override" style="opacity: 1;">
+														<div class="menu-container style-color-xsdn-bg menu-borders menu-shadows">
+															<div class="row-menu">
+																<div class="row-menu-inner">
+																	<div class="col-lg-0 logo-container megamenu-diff middle">
+																		<div id="main-logo" class="navbar-header style-light">
+																			<a href="http://benalexkeen.com/" class="navbar-brand" data-minheight="14"><h2 class="text-logo h3 logo-skinnable" data-maxheight="14" style="font-size:14px;">Ben Alex Keen</h2></a>
+																		</div>
+																		<div class="mmb-container"><div class="mobile-menu-button mobile-menu-button-light lines-button x2"><span class="lines"></span></div></div>
+																	</div>
+																	<div class="col-lg-12 main-menu-container middle">
+																		<div class="menu-horizontal">
+																			<div class="menu-horizontal-inner">
+																				<div class="nav navbar-nav navbar-main navbar-nav-first"><ul id="menu-main" class="menu-primary-inner menu-smart sm" data-smartmenus-id="1547989598916801"><li id="menu-item-45021" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-45021"><a title="Home" href="http://benalexkeen.com/">Home<i class="fa fa-angle-right fa-dropdown"></i></a></li>
+<li id="menu-item-45023" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45023"><a title="About" href="http://benalexkeen.com/about/">About<i class="fa fa-angle-right fa-dropdown"></i></a></li>
+<li id="menu-item-45090" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45090"><a title="Blog" href="http://benalexkeen.com/blog/">Blog<i class="fa fa-angle-right fa-dropdown"></i></a></li>
+<li id="menu-item-45066" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-45066"><a title="C3PyO" href="https://benalexkeen.github.io/C3PyO/">C3PyO<i class="fa fa-angle-right fa-dropdown"></i></a></li>
+<li id="menu-item-45024" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45024"><a title="Contact" href="http://benalexkeen.com/contact/">Contact<i class="fa fa-angle-right fa-dropdown"></i></a></li>
+</ul></div><div class="nav navbar-nav navbar-nav-last"><ul class="menu-smart sm menu-icons" data-smartmenus-id="15479895989176501"><li class="search-icon style-light dropdown"><a href="http://benalexkeen.com/decision-tree-classifier-in-python-using-scikit-learn/#" class="trigger-overlay" data-area="search" data-container="box-container">
+												<i class="fa fa-search3"></i><span class="desktop-hidden"><span>Search</span></span><i class="fa fa-angle-down fa-dropdown desktop-hidden"></i>
+												</a>
+												<ul role="menu" class="drop-menu desktop-hidden">
+													<li>
+														<form class="search" method="get" action="http://benalexkeen.com/">
+															<input type="search" class="search-field" placeholder="Search…" value="" name="s" title="Search for:">
+														</form>
+													</li>
+												</ul></li></ul></div></div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</header>
+												</div>			<script type="text/javascript">UNCODE.fixMenuHeight();</script>
+			<div class="main-wrapper">
+				<div class="main-container">
+					<div class="page-wrapper">
+						<div class="sections-container"><div id="page-header" data-imgready="true" class="header-style-dark header-scrolled"><div class="header-basic style-dark">
+													<div class="background-element header-wrapper header-scroll-opacity header-parallax style-color-wayh-bg header-only-text" data-height="10" style="min-height: 200px; height: 58.9px;">
+													<div class="header-bg-wrapper">
+											<div class="header-bg" style="transform: translate3d(0px, 0px, 0px);"></div>
+											<div class="block-bg-overlay style-color-wayh-bg" style="opacity: 0.65;"></div>
+										</div><div class="header-main-container limit-width">
+												<div class="header-content header-center header-middle header-align-center" style="padding-top: 69px;">
+													<div class="header-content-inner">
+														<h1 class="header-title font-762333 h3 font-weight-700 text-uppercase"><span>Decision Tree Classifier in Python using Scikit-learn</span></h1><div class="post-info">31st May 2017<span>|</span>In <a href="http://benalexkeen.com/category/python/" title="View all posts in Python">Python</a><span>|</span>By <a href="http://benalexkeen.com/author/benalexkeen/">Ben Keen</a></div>
+													</div>
+												</div>
+											</div><div class="header-scrolldown style-dark"><i class="fa fa-angle-down"></i></div></div>
+									</div></div><script type="text/javascript">UNCODE.initHeader();</script><article id="post-45199" class="page-body style-color-xsdn-bg post-45199 post type-post status-publish format-standard hentry category-python">
+          <div class="post-wrapper">
+          	<div class="post-body"><div class="post-content" style="max-width: 800px; margin: auto;"><div class="row-container">
+	  					<div class="row row-parent style-light double-top-padding double-bottom-padding">
+								<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Decision-Tree-Classifier-in-Python-using-Scikit-learn">Decision Tree Classifier in Python using Scikit-learn</h1>
+<p>Decision Trees can be used as classifier or regression models.</p>
+<p>A tree structure is constructed that breaks the dataset down into smaller subsets eventually resulting in a prediction. There are decision nodes that partition the data and leaf nodes that give the prediction that can be followed by traversing simple IF..AND..AND….THEN logic down the nodes.</p>
+<p>The root node (the first decision node) partitions the data based on the most influential feature partitioning. There are 2 measures for this, Gini Impurity and Entropy.</p>
+<h4 id="Entropy">Entropy</h4>
+<p>The root node (the first decision node) partitions the data using the feature that provides the most information gain.</p>
+<p>Information gain tells us how important a given attribute of the feature vectors is.</p>
+<p>It is calculated as:</p>
+<p><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mtext&gt;Information Gain&lt;/mtext&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mtext&gt;entropy(parent)&lt;/mtext&gt;&lt;mo&gt;&amp;#x2013;&lt;/mo&gt;&lt;mtext&gt;[average entropy(children)]&lt;/mtext&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 33.108em; display: inline-block;"><span style="display: inline-block; position: relative; width: 28.265em; height: 0px; font-size: 117%;"><span style="position: absolute; clip: rect(1.769em, 1028.15em, 3.08em, -999.997em); top: -2.675em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mtext" id="MathJax-Span-3" style="font-family: MathJax_Main;">Information Gain</span><span class="mo" id="MathJax-Span-4" style="font-family: MathJax_Main; padding-left: 0.288em;">=</span><span class="mtext" id="MathJax-Span-5" style="font-family: MathJax_Main; padding-left: 0.288em;">entropy(parent)</span><span class="mo" id="MathJax-Span-6" style="font-family: MathJax_Main;">–</span><span class="mtext" id="MathJax-Span-7" style="font-family: MathJax_Main; padding-left: 0.174em;">[average entropy(children)]</span></span><span style="display: inline-block; width: 0px; height: 2.681em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.33em; border-left: 0px solid; width: 0px; height: 1.337em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mtext>Information Gain</mtext><mo>=</mo><mtext>entropy(parent)</mtext><mo>–</mo><mtext>[average entropy(children)]</mtext></math></span></span><script type="math/tex" id="MathJax-Element-1">\text{Information Gain} = \text{entropy(parent)} – \text{[average entropy(children)]} </script></p>
+<p>Where entropy is a common measure of target class impurity, given as:</p>
+<p><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;E&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msub&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x03A3;&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;&amp;#x2013;&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;msub&gt;&lt;mi&gt;log&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msub&gt;&lt;mo&gt;&amp;#x2061;&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-8" style="width: 12.083em; display: inline-block;"><span style="display: inline-block; position: relative; width: 10.316em; height: 0px; font-size: 117%;"><span style="position: absolute; clip: rect(1.826em, 1010.32em, 3.08em, -999.997em); top: -2.675em; left: 0em;"><span class="mrow" id="MathJax-Span-9"><span class="mi" id="MathJax-Span-10" style="font-family: MathJax_Math-italic;">E<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-11" style="font-family: MathJax_Math-italic;">n</span><span class="mi" id="MathJax-Span-12" style="font-family: MathJax_Math-italic;">t</span><span class="mi" id="MathJax-Span-13" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-14" style="font-family: MathJax_Math-italic;">o</span><span class="mi" id="MathJax-Span-15" style="font-family: MathJax_Math-italic;">p</span><span class="mi" id="MathJax-Span-16" style="font-family: MathJax_Math-italic;">y<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-17" style="font-family: MathJax_Main; padding-left: 0.288em;">=</span><span class="msubsup" id="MathJax-Span-18" style="padding-left: 0.288em;"><span style="display: inline-block; position: relative; width: 1.028em; height: 0px;"><span style="position: absolute; clip: rect(3.137em, 1000.69em, 4.162em, -999.997em); top: -3.986em; left: 0em;"><span class="mi" id="MathJax-Span-19" style="font-family: MathJax_Main;">Σ</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.815em; left: 0.744em;"><span class="mi" id="MathJax-Span-20" style="font-size: 70.7%; font-family: MathJax_Math-italic;">i</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-21" style="font-family: MathJax_Main;">–</span><span class="msubsup" id="MathJax-Span-22" style="padding-left: 0.174em;"><span style="display: inline-block; position: relative; width: 0.801em; height: 0px;"><span style="position: absolute; clip: rect(3.365em, 1000.52em, 4.333em, -999.997em); top: -3.986em; left: 0em;"><span class="mi" id="MathJax-Span-23" style="font-family: MathJax_Math-italic;">p</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.815em; left: 0.516em;"><span class="mi" id="MathJax-Span-24" style="font-size: 70.7%; font-family: MathJax_Math-italic;">i</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="msubsup" id="MathJax-Span-25" style="padding-left: 0.174em;"><span style="display: inline-block; position: relative; width: 1.712em; height: 0px;"><span style="position: absolute; clip: rect(3.137em, 1001.26em, 4.39em, -999.997em); top: -3.986em; left: 0em;"><span class="mi" id="MathJax-Span-26" style="font-family: MathJax_Main;">log</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.758em; left: 1.256em;"><span class="mn" id="MathJax-Span-27" style="font-size: 70.7%; font-family: MathJax_Main;">2</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-28"></span><span class="msubsup" id="MathJax-Span-29" style="padding-left: 0.174em;"><span style="display: inline-block; position: relative; width: 0.801em; height: 0px;"><span style="position: absolute; clip: rect(3.365em, 1000.52em, 4.333em, -999.997em); top: -3.986em; left: 0em;"><span class="mi" id="MathJax-Span-30" style="font-family: MathJax_Math-italic;">p</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.815em; left: 0.516em;"><span class="mi" id="MathJax-Span-31" style="font-size: 70.7%; font-family: MathJax_Math-italic;">i</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.681em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.33em; border-left: 0px solid; width: 0px; height: 1.203em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>E</mi><mi>n</mi><mi>t</mi><mi>r</mi><mi>o</mi><mi>p</mi><mi>y</mi><mo>=</mo><msub><mi mathvariant="normal">Σ</mi><mi>i</mi></msub><mo>–</mo><msub><mi>p</mi><mi>i</mi></msub><msub><mi>log</mi><mn>2</mn></msub><mo>⁡</mo><msub><mi>p</mi><mi>i</mi></msub></math></span></span><script type="math/tex" id="MathJax-Element-2"> Entropy = \Sigma_i – p_i \log_2 p_i </script></p>
+<p>where i is each of the target classes.</p>
+<h4 id="Gini-Impurity">Gini Impurity</h4>
+<p>Gini Impurity is another measure of impurity and is calculated as follows:</p>
+<p><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-3-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;G&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;&amp;#x2013;&lt;/mo&gt;&lt;msub&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x03A3;&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;msubsup&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msubsup&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-32" style="width: 7.695em; display: inline-block;"><span style="display: inline-block; position: relative; width: 6.556em; height: 0px; font-size: 117%;"><span style="position: absolute; clip: rect(1.712em, 1006.56em, 3.137em, -999.997em); top: -2.675em; left: 0em;"><span class="mrow" id="MathJax-Span-33"><span class="mi" id="MathJax-Span-34" style="font-family: MathJax_Math-italic;">G</span><span class="mi" id="MathJax-Span-35" style="font-family: MathJax_Math-italic;">i</span><span class="mi" id="MathJax-Span-36" style="font-family: MathJax_Math-italic;">n</span><span class="mi" id="MathJax-Span-37" style="font-family: MathJax_Math-italic;">i</span><span class="mo" id="MathJax-Span-38" style="font-family: MathJax_Main; padding-left: 0.288em;">=</span><span class="mn" id="MathJax-Span-39" style="font-family: MathJax_Main; padding-left: 0.288em;">1</span><span class="mo" id="MathJax-Span-40" style="font-family: MathJax_Main;">–</span><span class="msubsup" id="MathJax-Span-41" style="padding-left: 0.174em;"><span style="display: inline-block; position: relative; width: 1.028em; height: 0px;"><span style="position: absolute; clip: rect(3.137em, 1000.69em, 4.162em, -999.997em); top: -3.986em; left: 0em;"><span class="mi" id="MathJax-Span-42" style="font-family: MathJax_Main;">Σ</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.815em; left: 0.744em;"><span class="mi" id="MathJax-Span-43" style="font-size: 70.7%; font-family: MathJax_Math-italic;">i</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="msubsup" id="MathJax-Span-44"><span style="display: inline-block; position: relative; width: 0.915em; height: 0px;"><span style="position: absolute; clip: rect(3.365em, 1000.52em, 4.333em, -999.997em); top: -3.986em; left: 0em;"><span class="mi" id="MathJax-Span-45" style="font-family: MathJax_Math-italic;">p</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.365em, 1000.46em, 4.162em, -999.997em); top: -4.328em; left: 0.516em;"><span class="mn" id="MathJax-Span-46" style="font-size: 70.7%; font-family: MathJax_Main;">2</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.365em, 1000.35em, 4.162em, -999.997em); top: -3.701em; left: 0.516em;"><span class="mi" id="MathJax-Span-47" style="font-size: 70.7%; font-family: MathJax_Math-italic;">i</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.681em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.397em; border-left: 0px solid; width: 0px; height: 1.47em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>G</mi><mi>i</mi><mi>n</mi><mi>i</mi><mo>=</mo><mn>1</mn><mo>–</mo><msub><mi mathvariant="normal">Σ</mi><mi>i</mi></msub><msubsup><mi>p</mi><mi>i</mi><mn>2</mn></msubsup></math></span></span><script type="math/tex" id="MathJax-Element-3"> Gini = 1 – \Sigma_i p_i^2 </script></p>
+<p>Gini impurity is computationally faster as it doesn’t require calculating logarithmic functions, though in reality which of the two methods is used rarely makes too much of a difference.</p>
+<h4 id="Predicting-Survival-in-the-Titanic-Data-Set">Predicting Survival in the Titanic Data Set</h4>
+<p>We’ll be using a decision tree to make predictions about the Titanic data set from Kaggle. This data set provides information on the Titanic passengers and can be used to predict whether a passenger survived or not.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'data/titanic.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">'PassengerId'</span><span class="p">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>             Survived  Pclass  \
+PassengerId                     
+1                   0       3   
+2                   1       1   
+3                   1       3   
+4                   1       1   
+5                   0       3   
+
+                                                          Name     Sex   Age  \
+PassengerId                                                                    
+1                                      Braund, Mr. Owen Harris    male  22.0   
+2            Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0   
+3                                       Heikkinen, Miss. Laina  female  26.0   
+4                 Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0   
+5                                     Allen, Mr. William Henry    male  35.0   
+
+             SibSp  Parch            Ticket     Fare Cabin Embarked  
+PassengerId                                                          
+1                1      0         A/5 21171   7.2500   NaN        S  
+2                1      0          PC 17599  71.2833   C85        C  
+3                0      0  STON/O2. 3101282   7.9250   NaN        S  
+4                1      0            113803  53.1000  C123        S  
+5                0      0            373450   8.0500   NaN        S  
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will be using Pclass, Sex, Age, SibSp (Siblings aboard), Parch (Parents/children aboard), and Fare to predict whether a passenger survived.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">'Pclass'</span><span class="p">,</span> <span class="s1">'Sex'</span><span class="p">,</span> <span class="s1">'Age'</span><span class="p">,</span> <span class="s1">'SibSp'</span><span class="p">,</span> <span class="s1">'Parch'</span><span class="p">,</span> <span class="s1">'Fare'</span><span class="p">,</span> <span class="s1">'Survived'</span><span class="p">]]</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We need to convert ‘Sex’ into an integer value of 0 or 1.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">'Sex'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Sex'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">'male'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'female'</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will also drop any rows with missing values.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'Survived'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Survived'</span><span class="p">]</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let’s take a look at our model’s attributes</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="n">model</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[9]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best')</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Defining some of the attributes like <code>max_depth</code>, <code>max_leaf_nodes</code>, <code>min_impurity_split</code>, and <code>min_samples_leaf</code> can help prevent overfitting the model to the training data.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First we fit our model using our training data.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[10]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best')</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then we score the predicted output from model on our test data against our ground truth test data.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="n">y_predict</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_predict</span><span class="p">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[11]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.83240223463687146</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We see an accuracy score of ~83.2%, which is significantly better than 50/50 guessing.</p>
+<p>Let’s also take a look at our confusion matrix:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_predict</span><span class="p">),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Predicted Not Survival'</span><span class="p">,</span> <span class="s1">'Predicted Survival'</span><span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'True Not Survival'</span><span class="p">,</span> <span class="s1">'True Survival'</span><span class="p">]</span>
+<span class="p">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[12]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Predicted Not Survival</th>
+<th>Predicted Survival</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>True Not Survival</th>
+<td>98</td>
+<td>14</td>
+</tr>
+<tr>
+<th>True Survival</th>
+<td>16</td>
+<td>51</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we have graphviz installed <a href="http://www.graphviz.org/">http://www.graphviz.org/</a>, we can export our decision tree so we can explore the decision and leaf nodes.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">tree_</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="s1">'tree.dot'</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can then convert this dot file to a png file.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2">
+<pre><span></span><span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span>
+
+<span class="n">call</span><span class="p">([</span><span class="s1">'dot'</span><span class="p">,</span> <span class="s1">'-T'</span><span class="p">,</span> <span class="s1">'png'</span><span class="p">,</span> <span class="s1">'tree.dot'</span><span class="p">,</span> <span class="s1">'-o'</span><span class="p">,</span> <span class="s1">'tree.png'</span><span class="p">])</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[14]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can then view our tree, which looks like this (Click to view full):</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/tree.png"><img src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/tree.png" alt="decision tree"></a></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The root node, with the most information gain, tells us that the biggest factor in determining survival is Sex.</p>
+<p>If we zoom in on some of the leaf nodes, we can follow some of the decisions down.</p>
+<p>We have already zoomed into the part of the decision tree that describes males, with a ticket lower than first class, that are under the age of 10.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/tree_leaf_node.png" alt="&#39;tree_leaf_nodes&#39;"></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The impurity is the measure as given at the top by <code>Gini</code>, the samples are the number of observations remaining to classify and the value is the how many samples are in class 0 (Did not survive) and how many samples are in class 1 (Survived).</p>
+<p>Let’s follow this part of the tree down, the nodes to the left are <code>True</code> and the nodes to the right are <code>False</code>:</p>
+<ol>
+<li>We see that we have 19 observations left to classify: 9 did not survive and 10 did. </li>
+<li>From this point the most information gain is how many siblings (SibSp) were aboard.<br>
+A. 9 out of the 10 samples with less than 2.5 siblings survived.<br>
+B. This leaves 10 observations left, 9 did not survive and 1 did.</li>
+<li>6 of these children that only had one parent (Parch) aboard did not survive.</li>
+<li>None of the children aged &gt; 3.5 survived</li>
+<li>Of the 2 remaining children, the one with &gt; 4.5 siblings did not survive.</li>
+</ol>
+</div>
+</div>
+</div>
+
+							</div>
+						</div></div><div class="post-footer post-footer-light row-container"><div class="row-container">
+	  					<div class="row row-parent style-light no-top-padding double-bottom-padding" style="max-width: 800px; margin: auto;">
+								<div class="post-share">
+          						<div class="detail-container margin-auto">
+												<div class="share-button share-buttons share-inline only-icon sharer-0" style="display: block;"><label class="social-export"><span></span></label><div class="social load top center networks-8"><ul><li class="social-facebook" data-network="facebook"></li><li class="social-twitter" data-network="twitter"></li><li class="social-gplus" data-network="google_plus"></li><li class="social-pinterest" data-network="pinterest"></li><li class="social-linkedin" data-network="linkedin"></li><li class="social-paper-plane" data-network="email"></li></ul></div></div>
+											</div>
+										</div>
+<div id="comments" class="comments-area">
+
+	
+			<h5 class="comments-title">
+			1 Comment		</h5>
+
+		
+		<div class="comment-list">
+			
+			<section class="comments-list">
+
+		
+			<article class="pingback even thread-even depth-1" id="comment-88" itemscope="" itemtype="http://schema.org/Comment">
+				<div class="comment-content post-content" itemprop="text">
+					<figure class="gravatar"></figure>
+					<div class="comment-meta post-meta" role="complementary">
+						<h2 class="comment-author">
+							<a class="comment-author-link" href="http://benalexkeen.com/random-forests-in-python-using-scikit-learn/" itemprop="author">Random Forests in python using scikit-learn – Ben Alex Keen</a>
+						</h2>
+						<time class="comment-meta-item" datetime="2017-05-31T14:50+00:00" itemprop="datePublished"><span>May 31st 2017, <a href="http://benalexkeen.com/decision-tree-classifier-in-python-using-scikit-learn/#comment-88" itemprop="url">2:50 pm</a></span></time>
+																		<p>[…] Decision trees are a great tool but they can often overfit the training set of data unless pruned effectively, hindering their predictive capabilities. […]</p>
+											</div>
+				</div>
+
+		
+			</article>
+
+		
+			</section>
+
+				</div><!-- .comment-list -->
+
+		
+	
+			<p class="no-comments">Comments are closed.</p>
+	
+		<div>
+		</div>
+</div><!-- #comments -->
+
+							</div>
+						</div></div></div><div class="row-container row-navigation row-navigation-light">
+	  					<div class="row row-parent style-light limit-width">
+								<nav class="post-navigation" role="navigation">
+									<ul class="navigation"><li class="page-prev"><span class="btn-container"><a class="btn btn-link text-default-color btn-icon-left" href="http://benalexkeen.com/linear-regression-in-python-using-scikit-learn/" rel="prev"><i class="fa fa-angle-left"></i><span>Prev</span></a></span></li><li class="page-next"><span class="btn-container"><a class="btn btn-link text-default-color btn-icon-right" href="http://benalexkeen.com/support-vector-classifiers-in-python-using-scikit-learn/" rel="next"><span>Next</span><i class="fa fa-angle-right"></i></a></span></li></ul><!-- .navigation -->
+							</nav><!-- .post-navigation -->
+							</div>
+						</div>
+          </div>
+        </article>							</div><!-- sections container -->
+						</div><!-- page wrapper -->
+										<footer id="colophon" class="site-footer">
+						<div data-parent="true" class="style-color-rgdb-bg row-container mobile-hidden" data-section="0"><div class="row double-top-padding double-bottom-padding single-h-padding limit-width row-parent" data-imgready="true"><div class="row-inner cols-md-responsive"><div class="pos-top pos-left align_left column_parent col-lg-3 col-md-33 half-internal-gutter"><div class="uncol style-dark"><div class="uncoltable"><div class="uncell no-block-padding"><div class="uncont"><div class="wpb_widgetised_column wpb_content_element">
+		<div class="wpb_wrapper">
+			
+			
+		</div>
+	</div>
+</div></div></div></div></div><div class="pos-top pos-left align_left column_parent col-lg-3 tablet-hidden col-md-25 single-internal-gutter"><div class="uncol style-dark"><div class="uncoltable"><div class="uncell no-block-padding"><div class="uncont"><div class="wpb_widgetised_column wpb_content_element">
+		<div class="wpb_wrapper">
+			
+			
+		</div>
+	</div>
+</div></div></div></div></div><div class="pos-top pos-left align_left column_parent col-lg-3 col-md-33 single-internal-gutter"><div class="uncol style-dark"><div class="uncoltable"><div class="uncell no-block-padding"><div class="uncont"><div class="wpb_widgetised_column wpb_content_element">
+		<div class="wpb_wrapper">
+			
+			
+		</div>
+	</div>
+</div></div></div></div></div><div class="pos-top pos-left align_left column_parent col-lg-3 col-md-33 single-internal-gutter"><div class="uncol style-dark"><div class="uncoltable"><div class="uncell no-block-padding"><div class="uncont"><div class="wpb_widgetised_column wpb_content_element">
+		<div class="wpb_wrapper">
+			
+			
+		</div>
+	</div>
+</div></div></div></div></div><script id="script-886234" type="text/javascript">UNCODE.initRow(document.getElementById("script-886234"));</script></div></div></div><div class="row-container style-dark-bg footer-last">
+	  					<div class="row row-parent style-dark limit-width no-top-padding no-h-padding no-bottom-padding">
+								<div class="site-info uncell col-lg-6 pos-middle text-left">© 2019 Ben Alex Keen All rights reserved</div><!-- site info --><div class="uncell col-lg-6 pos-middle text-right"><div class="social-icon icon-box icon-box-top icon-inline"><a href="https://www.facebook.com/benalexkeen" target="_blank"><i class="fa fa-social-facebook"></i></a></div><div class="social-icon icon-box icon-box-top icon-inline"><a href="https://twitter.com/benalexkeen" target="_blank"><i class="fa fa-social-twitter"></i></a></div><div class="social-icon icon-box icon-box-top icon-inline"><a href="https://www.linkedin.com/in/benjamin-keen-7a13464a" target="_blank"><i class="fa fa-social-linkedin"></i></a></div><div class="social-icon icon-box icon-box-top icon-inline"><a href="https://github.com/benalexkeen" target="_blank"><i class="fa fa-github-square"></i></a></div></div>
+							</div>
+						</div>					</footer>
+									</div><!-- main container -->
+			</div><!-- main wrapper -->
+		</div><!-- box container -->
+	</div><!-- box wrapper -->
+	<div class="style-light footer-scroll-top"><a href="http://benalexkeen.com/decision-tree-classifier-in-python-using-scikit-learn/#" class="scroll-top"><i class="fa fa-angle-up fa-stack fa-rounded btn-default btn-hover-nobg"></i></a></div>	<div class="overlay overlay-contentscale style-dark style-dark-bg overlay-search" data-area="search" data-container="box-container">
+		<div class="mmb-container"><div class="mobile-menu-button menu-button-offcanvas mobile-menu-button-dark lines-button x2 overlay-close close no-toggle" data-area="search" data-container="box-container"><span class="lines"></span></div></div>
+		<div class="search-container"><form action="http://benalexkeen.com/" method="get">
+	<div class="search-container-inner">
+		<input type="search" class="search-field form-fluid" placeholder="Search…" value="" name="s" title="Search for:">
+	  <i class="fa fa-search3"></i>
+	</div>
+</form>
+</div>
+	</div>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/jquery.form.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/benalexkeen.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ..."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/scripts.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var dot_irecommendthis = {"ajaxurl":"http:\/\/benalexkeen.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/dot_irecommendthis.js"></script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/mediaelement-and-player.min.js"></script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/plugins.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var SiteParameters = {"site_url":"http:\/\/benalexkeen.com","theme_directory":"http:\/\/benalexkeen.com\/wp-content\/themes\/Ben%20Alex%20Keen","admin_ajax":"http:\/\/benalexkeen.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/app.min.js"></script>
+<script type="text/javascript" src="./Decision Tree Classifier in Python using Scikit-learn – Ben Alex Keen_files/wp-embed.min.js"></script>
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: MathJax_Math-italic, sans-serif;"></div></div><div style="position: absolute; z-index: -10000; top: 0px; left: 0px; right: 0px; height: 7091px;"></div><div style="clear: both;"></div></body></html>
